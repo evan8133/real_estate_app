@@ -1,18 +1,19 @@
-class AddInterger {
-  int a;
-  int b;
-  AddInterger(this.a, this.b);
-  int get add => a + b;
-}
+import 'package:flutter/material.dart';
 
-
-class ConcatinateString {
-  String a;
-  String b;
-  ConcatinateString(this.a, this.b);
-  String get concatinate => a + b;
-}
 void main() {
-  var addNumber = AddInterger(1, 2);
-  print(addNumber);
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Real Estate App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const CircularProgressIndicator.adaptive(),
+    );
+  }
 }
