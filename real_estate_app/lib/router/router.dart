@@ -6,7 +6,7 @@ import 'package:real_estate_app/screens/admin/main/admin_main_screen.dart';
 import 'package:real_estate_app/screens/admin/setting/admin_setting_screen.dart';
 import 'package:real_estate_app/screens/login/page/login_screen.dart';
 import 'package:real_estate_app/screens/login/page/sign_up_screen.dart';
-import 'package:real_estate_app/screens/users/main/main_screen.dart';
+import 'package:real_estate_app/screens/users/main/page/main_screen.dart';
 
 import '../screens/splash/splash_screen.dart';
 import '../screens/users/home/home_screen.dart';

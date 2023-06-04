@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     User? currentUser = auth.currentUser;
-    Future.delayed(Duration(seconds: 3)).then((value) async {
+    Future.delayed(const Duration(seconds: 3)).then((value) async {
       if (currentUser != null && currentUser.uid.isNotEmpty) {
         DocumentSnapshot userDocument =
             await firestore.collection('users').doc(currentUser.uid).get();
@@ -61,12 +59,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: FutureBuilder(
-          future: Future.delayed(Duration(seconds: 4)),
+          future: Future.delayed(const Duration(seconds: 4)),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return Text('Splash Screen');
+              return const Text('Splash Screen');
             }
-            return SpinKitCircle(
+            return const SpinKitCircle(
               color: Colors.blue,
               size: 50.0,
             );

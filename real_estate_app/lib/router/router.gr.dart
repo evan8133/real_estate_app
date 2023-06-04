@@ -21,7 +21,7 @@ import '../screens/login/page/login_screen.dart' as _i4;
 import '../screens/login/page/sign_up_screen.dart' as _i5;
 import '../screens/splash/splash_screen.dart' as _i1;
 import '../screens/users/home/home_screen.dart' as _i2;
-import '../screens/users/main/main_screen.dart' as _i6;
+import '../screens/users/main/page/main_screen.dart' as _i6;
 import '../screens/users/profile/profile_screen.dart' as _i7;
 import '../screens/users/search/search_screen.dart' as _i9;
 import '../screens/users/setting/setting_screen.dart' as _i8;
@@ -70,7 +70,7 @@ class AppRouter extends _i12.RootStackRouter {
     HomeRoute.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.MainScreen(),
+        child:  _i6.MainScreen(),
       );
     },
     ProfileRoute.name: (routeData) {
@@ -82,7 +82,7 @@ class AppRouter extends _i12.RootStackRouter {
     SettingsRoute.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.SettingScreen(),
+        child:  _i8.SettingScreen(),
       );
     },
     SearchRoute.name: (routeData) {
@@ -100,7 +100,7 @@ class AppRouter extends _i12.RootStackRouter {
     Adminsetting.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i11.AdminSettingScreen(),
+        child:  _i11.AdminSettingScreen(),
       );
     },
   };
