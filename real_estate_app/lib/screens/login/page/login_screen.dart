@@ -1,10 +1,14 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:real_estate_app/router/router.gr.dart';
+import 'package:real_estate_app/utils/snack_bar.dart';
 
 import '../../../services/firebase_auth_methods.dart';
+import '../widget/text_input.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = '/login-email-password';
@@ -18,14 +22,25 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   void loginUser() {
-    if(_formKey.currentState!.validate()) {
-      context.read<FirebsaeAuthMethods>().loginWithEmail(
+    setState(() {
+      isLoading = true;
+    });
+    if (_formKey.currentState!.validate()) {
+      context
+          .read<FirebsaeAuthMethods>()
+          .loginWithEmail(
             email: emailController.text,
             password: passwordController.text,
             context: context,
-          );
+          )
+          .then((value) {
+        setState(() {
+          isLoading = false;
+        });
+      });
     }
   }
 
@@ -41,7 +56,8 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-                SvgPicture.asset('assets/logo.svg', width: 350.w), // Your Logo goes here
+                SvgPicture.asset('assets/logo.svg',
+                    width: 350.w), // Your Logo goes here
                 const SizedBox(height: 10),
                 TextInput(
                   hideInput: false,
@@ -80,48 +96,18 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
                   Buttons.Google,
                   onPressed: () {/* Google Sign-In action */},
                 ),
+                SizedBox(height: 20.h),
+                ElevatedButton(
+                  onPressed: () {
+                    context.router.push(const SignUpRoute());
+                  },
+                  child: const Text(
+                    "or, Sign Up",
+                  ),
+                ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class TextInput extends StatelessWidget {
-  final textEditingController;
-  final String hint;
-  final bool hideInput;
-  final String? Function(String?)? validator;
-
-  const TextInput({
-    Key? key,
-    required this.textEditingController,
-    required this.hint,
-    required this.hideInput,
-    this.validator,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: textEditingController,
-      obscureText: hideInput,
-      validator: validator,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        filled: true,
-        hintText: hint,
-        hintStyle: TextStyle(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
         ),
       ),
     );

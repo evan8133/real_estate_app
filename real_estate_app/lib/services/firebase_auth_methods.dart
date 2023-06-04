@@ -1,32 +1,42 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:real_estate_app/utils/snack_bar.dart';
 
+import '../router/router.gr.dart';
+
 class FirebsaeAuthMethods {
   final FirebaseAuth _auth;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   FirebsaeAuthMethods(this._auth);
   User get user => _auth.currentUser!;
-
+  Stream<User?> get authState => _auth.authStateChanges();
   //signUp
   Future<void> signUpWithEmail({
-    required String email,
+    required Map<String, dynamic> user,
     required String password,
     required BuildContext context,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
+      await _auth
+          .createUserWithEmailAndPassword(
+        email: user['email'],
         password: password,
-      );
+      )
+          .then((value) {
+        log('User created successfully');
+        _firebaseFirestore.collection('users').doc(value.user!.uid).set(user);
+      });
       await sendEmailVerification(context);
     } on FirebaseAuthException catch (e) {
       // if you want to display your own custom error message
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        showSnackBar(context, 'The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        showSnackBar(context, 'The account already exists for that email.');
       }
       showSnackBar(
           context, e.message!); // Displaying the usual firebase error message
@@ -39,15 +49,40 @@ class FirebsaeAuthMethods {
     required String password,
     required BuildContext context,
   }) async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      if (!user.emailVerified) {
-        await sendEmailVerification(context);
-        // restrict access to certain things using provider
-        // transition to another page instead of home screen
+      if (_auth.currentUser != null) {
+        DocumentSnapshot userDocument = await firestore
+            .collection('users')
+            .doc(_auth.currentUser!.uid)
+            .get();
+        Map<String, dynamic> userData =
+            userDocument.data() as Map<String, dynamic>;
+
+        if (userData.containsKey('role')) {
+          if (userData['role'] == 'admin') {
+            // This is an admin user.
+            // Navigate to the admin page.
+            context.router.replace(const AdminNavigation());
+          } else {
+            // This is a regular user.
+            // Navigate to the regular user page.
+            context.router.replace(const UserNavigation());
+          }
+        } else {
+          // The document did not contain a 'role' field.
+          // Display an error message or handle it appropriately
+          showSnackBar(context, "Error: No role found for this user");
+        }
+      } else {
+        // Login failed
+        // Display an error message or handle it appropriately
+        showSnackBar(context, "Error: Could not login");
       }
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!); // Displaying the error message
@@ -74,13 +109,20 @@ class FirebsaeAuthMethods {
   }
 
   // DELETE ACCOUNT
+  // DELETE ACCOUNT
   Future<void> deleteAccount(BuildContext context) async {
     try {
+      String uid = _auth.currentUser!.uid;
+      await _firebaseFirestore.collection('users').doc(uid).delete();
       await _auth.currentUser!.delete();
+      showSnackBar(context, "Account deleted successfully");
+      context.router.replace(const LoginRoute());
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!); // Displaying the error message
       // if an error of requires-recent-login is thrown, make sure to log
       // in user again and then delete account.
+    } catch (e) {
+      showSnackBar(context, "Error: Could not delete user data");
     }
   }
 }
