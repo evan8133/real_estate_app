@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../router/router.gr.dart';
@@ -21,10 +22,10 @@ class _NavigationPagesState extends State<HomeNavigationScreen> {
         centerTitle: true,
         leading: const AutoLeadingButton(),
       ),
-      routes: const [
+      routes:  [
         HomeRoute(),
-        SearchRoute(),
-        ProfileRoute(),
+        const SearchRoute(),
+        const MapRoute(),
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
@@ -47,8 +48,8 @@ class _NavigationPagesState extends State<HomeNavigationScreen> {
               selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(
-              icon: const Icon(Icons.person),
-              title: const Text('Profile'),
+              icon: const Icon(BoxIcons.bx_map),
+              title: const Text('Map'),
               selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(

@@ -57,6 +57,7 @@ dependencies:
   flutter_tags_x: ^1.1.0
   flutter_animated_icons: ^1.0.1
   icons_plus: ^3.0.0
+  google_maps_flutter: ^2.2.8
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +86,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo.svg
+    - assets/logo.png
     - assets/user.png
   #   - images/a_dot_ham.jpeg
 

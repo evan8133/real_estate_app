@@ -10,7 +10,7 @@ import 'package:real_estate_app/screens/users/main/page/main_screen.dart';
 
 import '../screens/splash/splash_screen.dart';
 import '../screens/users/home/home_screen.dart';
-import '../screens/users/profile/profile_screen.dart';
+import '../screens/users/map/map_screen.dart';
 import '../screens/users/search/search_screen.dart';
 import '../screens/users/setting/setting_screen.dart';
 
@@ -35,9 +35,9 @@ import '../screens/users/setting/setting_screen.dart';
           guards: [UserGuard],
         ),
         MaterialRoute(
-          path: 'profile',
-          name: 'profileRoute',
-          page: ProfileScreen,
+          path: 'map',
+          name: 'mapRoute',
+          page: MapScreen,
           guards: [UserGuard],
         ),
         MaterialRoute(

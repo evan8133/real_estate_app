@@ -12,6 +12,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/foundation.dart' as _i15;
 import 'package:flutter/material.dart' as _i13;
 
 import '../screens/admin/home/admin_nav_home.dart' as _i3;
@@ -22,7 +23,7 @@ import '../screens/login/page/sign_up_screen.dart' as _i5;
 import '../screens/splash/splash_screen.dart' as _i1;
 import '../screens/users/home/home_screen.dart' as _i2;
 import '../screens/users/main/page/main_screen.dart' as _i6;
-import '../screens/users/profile/profile_screen.dart' as _i7;
+import '../screens/users/map/map_screen.dart' as _i7;
 import '../screens/users/search/search_screen.dart' as _i9;
 import '../screens/users/setting/setting_screen.dart' as _i8;
 import 'router_guards.dart' as _i14;
@@ -68,21 +69,25 @@ class AppRouter extends _i12.RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child:  _i6.MainScreen(),
+        child: _i6.MainScreen(key: args.key),
       );
     },
-    ProfileRoute.name: (routeData) {
+    MapRoute.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.ProfileScreen(),
+        child:  _i7.MapScreen(),
       );
     },
     SettingsRoute.name: (routeData) {
+      final args = routeData.argsAs<SettingsRouteArgs>(
+          orElse: () => const SettingsRouteArgs());
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child:  _i8.SettingScreen(),
+        child: _i8.SettingScreen(key: args.key),
       );
     },
     SearchRoute.name: (routeData) {
@@ -100,7 +105,7 @@ class AppRouter extends _i12.RootStackRouter {
     Adminsetting.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
         routeData: routeData,
-        child:  _i11.AdminSettingScreen(),
+        child: const _i11.AdminSettingScreen(),
       );
     },
   };
@@ -123,8 +128,8 @@ class AppRouter extends _i12.RootStackRouter {
               guards: [userGuard],
             ),
             _i12.RouteConfig(
-              ProfileRoute.name,
-              path: 'profile',
+              MapRoute.name,
+              path: 'map',
               parent: UserNavigation.name,
               guards: [userGuard],
             ),
@@ -236,38 +241,62 @@ class SignUpRoute extends _i12.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.MainScreen]
-class HomeRoute extends _i12.PageRouteInfo<void> {
-  const HomeRoute()
+class HomeRoute extends _i12.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i15.Key? key})
       : super(
           HomeRoute.name,
           path: 'home',
+          args: HomeRouteArgs(key: key),
         );
 
   static const String name = 'HomeRoute';
 }
 
+class HomeRouteArgs {
+  const HomeRouteArgs({this.key});
+
+  final _i15.Key? key;
+
+  @override
+  String toString() {
+    return 'HomeRouteArgs{key: $key}';
+  }
+}
+
 /// generated route for
-/// [_i7.ProfileScreen]
-class ProfileRoute extends _i12.PageRouteInfo<void> {
-  const ProfileRoute()
+/// [_i7.MapScreen]
+class MapRoute extends _i12.PageRouteInfo<void> {
+  const MapRoute()
       : super(
-          ProfileRoute.name,
-          path: 'profile',
+          MapRoute.name,
+          path: 'map',
         );
 
-  static const String name = 'ProfileRoute';
+  static const String name = 'MapRoute';
 }
 
 /// generated route for
 /// [_i8.SettingScreen]
-class SettingsRoute extends _i12.PageRouteInfo<void> {
-  const SettingsRoute()
+class SettingsRoute extends _i12.PageRouteInfo<SettingsRouteArgs> {
+  SettingsRoute({_i15.Key? key})
       : super(
           SettingsRoute.name,
           path: 'settings',
+          args: SettingsRouteArgs(key: key),
         );
 
   static const String name = 'SettingsRoute';
+}
+
+class SettingsRouteArgs {
+  const SettingsRouteArgs({this.key});
+
+  final _i15.Key? key;
+
+  @override
+  String toString() {
+    return 'SettingsRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

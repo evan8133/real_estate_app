@@ -8,6 +8,7 @@ import 'package:real_estate_app/router/router.gr.dart';
 import 'package:real_estate_app/utils/snack_bar.dart';
 
 import '../../../services/firebase_auth_methods.dart';
+import '../../../utils/theme_provider.dart';
 import '../widget/text_input.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,7 +47,15 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeMode = themeProvider.themeMode;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Login',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -56,8 +65,9 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-                SvgPicture.asset('assets/logo.svg',
-                    width: 350.w), // Your Logo goes here
+                themeMode == ThemeModeType.light
+                    ? SvgPicture.asset('assets/logo.svg', width: 350.w)
+                    : Image.asset('assets/logo.png'),
                 const SizedBox(height: 10),
                 TextInput(
                   hideInput: false,
@@ -70,6 +80,7 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
                     // You might want to add more comprehensive email validation
                     return null;
                   },
+                  textInputType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
                 TextInput(
@@ -83,28 +94,43 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
                     // You might want to add more password validation (length, complexity, etc.)
                     return null;
                   },
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: loginUser,
-                  child: const Text(
-                    "Login",
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: loginUser,
+                      child: const Text(
+                        "Login",
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.router.push(const SignUpRoute());
+                      },
+                      child: const Text(
+                        "or, Sign Up",
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20.h),
                 SignInButton(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    1,
+                  ),
                   Buttons.Google,
                   onPressed: () {/* Google Sign-In action */},
                 ),
                 SizedBox(height: 20.h),
-                ElevatedButton(
-                  onPressed: () {
-                    context.router.push(const SignUpRoute());
-                  },
-                  child: const Text(
-                    "or, Sign Up",
-                  ),
-                ),
               ],
             ),
           ),

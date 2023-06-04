@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           swapLegacyOnMaterial3: true,
           // To use the playground font, add GoogleFonts package and uncomment
-          // fontFamily: GoogleFonts.notoSans().fontFamily,
+          fontFamily: GoogleFonts.notoSans().fontFamily,
         ),
         darkTheme: FlexThemeData.dark(
           colors: const FlexSchemeColor(
@@ -104,7 +104,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           swapLegacyOnMaterial3: true,
           // To use the Playground font, add GoogleFonts package and uncomment
-          // fontFamily: GoogleFonts.notoSans().fontFamily,
+          fontFamily: GoogleFonts.notoSans().fontFamily,
         ),
         themeMode:
             themeMode == ThemeModeType.light ? ThemeMode.light : ThemeMode.dark,

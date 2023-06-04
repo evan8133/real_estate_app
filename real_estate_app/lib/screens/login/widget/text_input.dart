@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextInput extends StatelessWidget {
   final textEditingController;
+  final TextInputType textInputType;
   final String hint;
   final bool hideInput;
   
@@ -14,6 +15,7 @@ class TextInput extends StatelessWidget {
     required this.hint,
     required this.hideInput,
     this.validator,
+    required this.textInputType,
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class TextInput extends StatelessWidget {
       controller: textEditingController,
       obscureText: hideInput,
       validator: validator,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

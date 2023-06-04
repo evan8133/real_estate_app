@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:real_estate_app/services/firebase_auth_methods.dart';
 import 'package:real_estate_app/utils/snack_bar.dart';
 
+import '../../../utils/theme_provider.dart';
 import '../widget/text_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -59,7 +60,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final themeMode = themeProvider.themeMode;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Sign Up',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        centerTitle: true,
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -69,8 +79,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-                SvgPicture.asset('assets/logo.svg',
-                    width: 200.w), // Your Logo goes here
+                themeMode == ThemeModeType.light
+                    ? SvgPicture.asset('assets/logo.svg', width: 250.w)
+                    : Image.asset('assets/logo.png', width: 250.w),
+// Your Logo goes here
                 Text("Sign Up",
                     style: Theme.of(context).textTheme.displayMedium),
                 const SizedBox(height: 10),
@@ -91,6 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                     return null;
                   },
+                  textInputType: TextInputType.name,
                 ),
                 const SizedBox(height: 20),
                 TextInput(
@@ -110,6 +123,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // You might want to add more comprehensive email validation
                     return null;
                   },
+                  textInputType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
                 TextInput(
@@ -132,6 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // You might want to add more password validation (length, complexity, etc.)
                     return null;
                   },
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(height: 20),
                 TextInput(
@@ -147,6 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                     return null;
                   },
+                  textInputType: TextInputType.text,
                 ),
                 const SizedBox(height: 20),
                 TextInput(
@@ -168,6 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }
                     return null;
                   },
+                  textInputType: TextInputType.number,
                 ),
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String>(
@@ -209,6 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // You might want to add more comprehensive phone number validation
                     return null;
                   },
+                  textInputType: TextInputType.phone,
                 ),
                 const SizedBox(height: 40),
                 ElevatedButton(
@@ -221,6 +239,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           "Sign Up",
                         ),
                 ),
+                const SizedBox(height: 40),
+
               ],
             ),
           ),
