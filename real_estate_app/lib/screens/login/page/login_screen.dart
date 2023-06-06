@@ -51,6 +51,7 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
     final themeMode = themeProvider.themeMode;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Login',
           style: Theme.of(context).textTheme.headlineMedium,

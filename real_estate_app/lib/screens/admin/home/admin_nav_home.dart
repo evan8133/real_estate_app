@@ -24,6 +24,7 @@ class _NavigationPagesState extends State<AdminNavScreen> {
       ),
       routes: const [
         Adminhome(),
+        Managment(),
         Adminsetting(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
@@ -38,6 +39,11 @@ class _NavigationPagesState extends State<AdminNavScreen> {
             SalomonBottomBarItem(
               icon: const Icon(Icons.home),
               title: const Text('Home'),
+              selectedColor: Theme.of(context).colorScheme.primary,
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(Icons.manage_accounts_rounded),
+              title: const Text('Managment'),
               selectedColor: Theme.of(context).colorScheme.primary,
             ),
             SalomonBottomBarItem(

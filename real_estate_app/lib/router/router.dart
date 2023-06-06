@@ -3,6 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:real_estate_app/router/router_guards.dart';
 import 'package:real_estate_app/screens/admin/home/admin_nav_home.dart';
 import 'package:real_estate_app/screens/admin/main/admin_main_screen.dart';
+import 'package:real_estate_app/screens/admin/manage_agents/page/manage_agent.dart';
+import 'package:real_estate_app/screens/admin/manage_property/page/manage_property.dart';
+import 'package:real_estate_app/screens/admin/manage_users/page/manage_user.dart';
+import 'package:real_estate_app/screens/admin/manager/page/managment_screen.dart';
 import 'package:real_estate_app/screens/admin/setting/admin_setting_screen.dart';
 import 'package:real_estate_app/screens/login/page/login_screen.dart';
 import 'package:real_estate_app/screens/login/page/sign_up_screen.dart';
@@ -17,7 +21,7 @@ import '../screens/users/setting/setting_screen.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Screen,Route',
   routes: [
-     MaterialRoute(
+    MaterialRoute(
       initial: true,
       page: SplashScreen,
       path: '/',
@@ -71,7 +75,13 @@ import '../screens/users/setting/setting_screen.dart';
           name: 'adminsetting',
           page: AdminSettingScreen,
           guards: [UserGuard],
-        )
+        ),
+        MaterialRoute(
+          page: ManagmentScreen,
+          path: 'managment',
+          name: 'managment',
+          guards: [UserGuard],
+        ),
       ],
     ),
     MaterialRoute(
@@ -82,6 +92,27 @@ import '../screens/users/setting/setting_screen.dart';
       page: SignUpScreen,
       path: '/signup',
     ),
+    MaterialRoute(
+      page: ManageUsersScreen,
+      path: '/manageusers',
+      guards: [
+        UserGuard,
+      ],
+    ),
+    MaterialRoute(
+      page: ManageAgentsScreen,
+      path: '/manageagents',
+      guards: [
+        UserGuard,
+      ],
+    ),
+    MaterialRoute(
+      page: ManagePropertiesScreen,
+      path: '/manageproperties',
+      guards: [
+        UserGuard,
+      ],
+    )
   ],
 )
 class $AppRouter {}

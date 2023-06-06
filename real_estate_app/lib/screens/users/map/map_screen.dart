@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
                 LatLng(property.location.latitude, property.location.longitude),
             infoWindow: InfoWindow(
               title: property.title,
-              snippet: 'Size: ${property.size}, Price: ${property.price}',
+              snippet: 'Size: ${property.size}, Price: \$${property.price}',
               onTap: () {},
             ),
           );
