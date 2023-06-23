@@ -11,163 +11,216 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i16;
-import 'package:flutter/foundation.dart' as _i19;
-import 'package:flutter/material.dart' as _i17;
+import 'package:auto_route/auto_route.dart' as _i20;
+import 'package:flutter/foundation.dart' as _i23;
+import 'package:flutter/material.dart' as _i21;
 
-import '../screens/admin/home/admin_nav_home.dart' as _i3;
-import '../screens/admin/main/admin_main_screen.dart' as _i13;
-import '../screens/admin/manage_agents/page/manage_agent.dart' as _i7;
-import '../screens/admin/manage_property/page/manage_property.dart' as _i8;
-import '../screens/admin/manage_users/page/manage_user.dart' as _i6;
-import '../screens/admin/manager/page/managment_screen.dart' as _i15;
-import '../screens/admin/setting/admin_setting_screen.dart' as _i14;
-import '../screens/login/page/login_screen.dart' as _i4;
-import '../screens/login/page/sign_up_screen.dart' as _i5;
+import '../screens/admin/home/admin_nav_home.dart' as _i4;
+import '../screens/admin/main/admin_main_screen.dart' as _i17;
+import '../screens/admin/manage_agents/page/manage_agent.dart' as _i8;
+import '../screens/admin/manage_property/page/manage_property.dart' as _i9;
+import '../screens/admin/manage_users/page/manage_user.dart' as _i7;
+import '../screens/admin/manager/page/managment_screen.dart' as _i19;
+import '../screens/admin/setting/admin_setting_screen.dart' as _i18;
+import '../screens/agent/agent_properties/agent_properties_screen.dart' as _i12;
+import '../screens/agent/home/agent_nav_home.dart' as _i2;
+import '../screens/agent/main/agent_home_screen.dart' as _i10;
+import '../screens/agent/settings/agent_settings_screen.dart' as _i11;
+import '../screens/login/page/login_screen.dart' as _i5;
+import '../screens/login/page/sign_up_screen.dart' as _i6;
 import '../screens/splash/splash_screen.dart' as _i1;
-import '../screens/users/home/home_screen.dart' as _i2;
-import '../screens/users/main/page/main_screen.dart' as _i9;
-import '../screens/users/map/map_screen.dart' as _i10;
-import '../screens/users/search/search_screen.dart' as _i12;
-import '../screens/users/setting/setting_screen.dart' as _i11;
-import 'router_guards.dart' as _i18;
+import '../screens/users/home/home_screen.dart' as _i3;
+import '../screens/users/main/page/main_screen.dart' as _i13;
+import '../screens/users/map/map_screen.dart' as _i14;
+import '../screens/users/search/search_screen.dart' as _i16;
+import '../screens/users/setting/setting_screen.dart' as _i15;
+import 'router_guards.dart' as _i22;
 
-class AppRouter extends _i16.RootStackRouter {
+class AppRouter extends _i20.RootStackRouter {
   AppRouter({
-    _i17.GlobalKey<_i17.NavigatorState>? navigatorKey,
+    _i21.GlobalKey<_i21.NavigatorState>? navigatorKey,
     required this.userGuard,
   }) : super(navigatorKey);
 
-  final _i18.UserGuard userGuard;
+  final _i22.UserGuard userGuard;
 
   @override
-  final Map<String, _i16.PageFactory> pagesMap = {
+  final Map<String, _i20.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i1.SplashScreen(),
       );
     },
-    UserNavigation.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+    AgentNavRoute.name: (routeData) {
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.HomeNavigationScreen(),
+        child: const _i2.AgentNavScreen(),
+      );
+    },
+    UserNavigation.name: (routeData) {
+      return _i20.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i3.HomeNavigationScreen(),
       );
     },
     AdminNavigation.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.AdminNavScreen(),
+        child: const _i4.AdminNavScreen(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.LoginScreen(),
+        child: const _i5.LoginScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.SignUpScreen(),
+        child: const _i6.SignUpScreen(),
       );
     },
     ManageUsersRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i6.ManageUsersScreen(),
+        child: _i7.ManageUsersScreen(),
       );
     },
     ManageAgentsRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i7.ManageAgentsScreen(),
+        child: _i8.ManageAgentsScreen(),
       );
     },
     ManagePropertiesRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i8.ManagePropertiesScreen(),
+        child: _i9.ManagePropertiesScreen(),
+      );
+    },
+    Agenthome.name: (routeData) {
+      return _i20.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i10.AgentHomeScreen(),
+      );
+    },
+    Agentsetting.name: (routeData) {
+      return _i20.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child:  _i11.AgentSettingScreen(),
+      );
+    },
+    Agentproperties.name: (routeData) {
+      return _i20.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i12.AgentPropertiesScreen(),
       );
     },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i9.MainScreen(key: args.key),
+        child: _i13.MainScreen(key: args.key),
       );
     },
     MapRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i10.MapScreen(),
+        child: _i14.MapScreen(),
       );
     },
     SettingsRoute.name: (routeData) {
       final args = routeData.argsAs<SettingsRouteArgs>(
           orElse: () => const SettingsRouteArgs());
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i11.SettingScreen(key: args.key),
+        child: _i15.SettingScreen(key: args.key),
       );
     },
     SearchRoute.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i12.SearchScreen(),
+        child: const _i16.SearchScreen(),
       );
     },
     Adminhome.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i13.AdminMainScreen(),
+        child: _i17.AdminMainScreen(),
       );
     },
     Adminsetting.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i14.AdminSettingScreen(),
+        child: const _i18.AdminSettingScreen(),
       );
     },
     Managment.name: (routeData) {
-      return _i16.MaterialPageX<dynamic>(
+      return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i15.ManagmentScreen(),
+        child: const _i19.ManagmentScreen(),
       );
     },
   };
 
   @override
-  List<_i16.RouteConfig> get routes => [
-        _i16.RouteConfig(
+  List<_i20.RouteConfig> get routes => [
+        _i20.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
+          AgentNavRoute.name,
+          path: '/agenthome',
+          guards: [userGuard],
+          children: [
+            _i20.RouteConfig(
+              Agenthome.name,
+              path: 'agenthome',
+              parent: AgentNavRoute.name,
+              guards: [userGuard],
+            ),
+            _i20.RouteConfig(
+              Agentsetting.name,
+              path: 'agentsetting',
+              parent: AgentNavRoute.name,
+              guards: [userGuard],
+            ),
+            _i20.RouteConfig(
+              Agentproperties.name,
+              path: 'agentproperties',
+              parent: AgentNavRoute.name,
+              guards: [userGuard],
+            ),
+          ],
+        ),
+        _i20.RouteConfig(
           UserNavigation.name,
           path: '/home',
           guards: [userGuard],
           children: [
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               HomeRoute.name,
               path: 'home',
               parent: UserNavigation.name,
               guards: [userGuard],
             ),
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               MapRoute.name,
               path: 'map',
               parent: UserNavigation.name,
               guards: [userGuard],
             ),
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               SettingsRoute.name,
               path: 'settings',
               parent: UserNavigation.name,
               guards: [userGuard],
             ),
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               SearchRoute.name,
               path: 'search',
               parent: UserNavigation.name,
@@ -175,24 +228,24 @@ class AppRouter extends _i16.RootStackRouter {
             ),
           ],
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           AdminNavigation.name,
           path: '/adminhome',
           guards: [userGuard],
           children: [
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               Adminhome.name,
               path: 'adminhome',
               parent: AdminNavigation.name,
               guards: [userGuard],
             ),
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               Adminsetting.name,
               path: 'adminsetting',
               parent: AdminNavigation.name,
               guards: [userGuard],
             ),
-            _i16.RouteConfig(
+            _i20.RouteConfig(
               Managment.name,
               path: 'managment',
               parent: AdminNavigation.name,
@@ -200,25 +253,25 @@ class AppRouter extends _i16.RootStackRouter {
             ),
           ],
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           LoginRoute.name,
           path: '/login',
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           SignUpRoute.name,
           path: '/signup',
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           ManageUsersRoute.name,
           path: '/manageusers',
           guards: [userGuard],
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           ManageAgentsRoute.name,
           path: '/manageagents',
           guards: [userGuard],
         ),
-        _i16.RouteConfig(
+        _i20.RouteConfig(
           ManagePropertiesRoute.name,
           path: '/manageproperties',
           guards: [userGuard],
@@ -228,7 +281,7 @@ class AppRouter extends _i16.RootStackRouter {
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashRoute extends _i16.PageRouteInfo<void> {
+class SplashRoute extends _i20.PageRouteInfo<void> {
   const SplashRoute()
       : super(
           SplashRoute.name,
@@ -239,9 +292,22 @@ class SplashRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.HomeNavigationScreen]
-class UserNavigation extends _i16.PageRouteInfo<void> {
-  const UserNavigation({List<_i16.PageRouteInfo>? children})
+/// [_i2.AgentNavScreen]
+class AgentNavRoute extends _i20.PageRouteInfo<void> {
+  const AgentNavRoute({List<_i20.PageRouteInfo>? children})
+      : super(
+          AgentNavRoute.name,
+          path: '/agenthome',
+          initialChildren: children,
+        );
+
+  static const String name = 'AgentNavRoute';
+}
+
+/// generated route for
+/// [_i3.HomeNavigationScreen]
+class UserNavigation extends _i20.PageRouteInfo<void> {
+  const UserNavigation({List<_i20.PageRouteInfo>? children})
       : super(
           UserNavigation.name,
           path: '/home',
@@ -252,9 +318,9 @@ class UserNavigation extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.AdminNavScreen]
-class AdminNavigation extends _i16.PageRouteInfo<void> {
-  const AdminNavigation({List<_i16.PageRouteInfo>? children})
+/// [_i4.AdminNavScreen]
+class AdminNavigation extends _i20.PageRouteInfo<void> {
+  const AdminNavigation({List<_i20.PageRouteInfo>? children})
       : super(
           AdminNavigation.name,
           path: '/adminhome',
@@ -265,8 +331,8 @@ class AdminNavigation extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.LoginScreen]
-class LoginRoute extends _i16.PageRouteInfo<void> {
+/// [_i5.LoginScreen]
+class LoginRoute extends _i20.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -277,8 +343,8 @@ class LoginRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.SignUpScreen]
-class SignUpRoute extends _i16.PageRouteInfo<void> {
+/// [_i6.SignUpScreen]
+class SignUpRoute extends _i20.PageRouteInfo<void> {
   const SignUpRoute()
       : super(
           SignUpRoute.name,
@@ -289,8 +355,8 @@ class SignUpRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ManageUsersScreen]
-class ManageUsersRoute extends _i16.PageRouteInfo<void> {
+/// [_i7.ManageUsersScreen]
+class ManageUsersRoute extends _i20.PageRouteInfo<void> {
   const ManageUsersRoute()
       : super(
           ManageUsersRoute.name,
@@ -301,8 +367,8 @@ class ManageUsersRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ManageAgentsScreen]
-class ManageAgentsRoute extends _i16.PageRouteInfo<void> {
+/// [_i8.ManageAgentsScreen]
+class ManageAgentsRoute extends _i20.PageRouteInfo<void> {
   const ManageAgentsRoute()
       : super(
           ManageAgentsRoute.name,
@@ -313,8 +379,8 @@ class ManageAgentsRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.ManagePropertiesScreen]
-class ManagePropertiesRoute extends _i16.PageRouteInfo<void> {
+/// [_i9.ManagePropertiesScreen]
+class ManagePropertiesRoute extends _i20.PageRouteInfo<void> {
   const ManagePropertiesRoute()
       : super(
           ManagePropertiesRoute.name,
@@ -325,9 +391,45 @@ class ManagePropertiesRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.MainScreen]
-class HomeRoute extends _i16.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({_i19.Key? key})
+/// [_i10.AgentHomeScreen]
+class Agenthome extends _i20.PageRouteInfo<void> {
+  const Agenthome()
+      : super(
+          Agenthome.name,
+          path: 'agenthome',
+        );
+
+  static const String name = 'Agenthome';
+}
+
+/// generated route for
+/// [_i11.AgentSettingScreen]
+class Agentsetting extends _i20.PageRouteInfo<void> {
+  const Agentsetting()
+      : super(
+          Agentsetting.name,
+          path: 'agentsetting',
+        );
+
+  static const String name = 'Agentsetting';
+}
+
+/// generated route for
+/// [_i12.AgentPropertiesScreen]
+class Agentproperties extends _i20.PageRouteInfo<void> {
+  const Agentproperties()
+      : super(
+          Agentproperties.name,
+          path: 'agentproperties',
+        );
+
+  static const String name = 'Agentproperties';
+}
+
+/// generated route for
+/// [_i13.MainScreen]
+class HomeRoute extends _i20.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i23.Key? key})
       : super(
           HomeRoute.name,
           path: 'home',
@@ -340,7 +442,7 @@ class HomeRoute extends _i16.PageRouteInfo<HomeRouteArgs> {
 class HomeRouteArgs {
   const HomeRouteArgs({this.key});
 
-  final _i19.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -349,8 +451,8 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i10.MapScreen]
-class MapRoute extends _i16.PageRouteInfo<void> {
+/// [_i14.MapScreen]
+class MapRoute extends _i20.PageRouteInfo<void> {
   const MapRoute()
       : super(
           MapRoute.name,
@@ -361,9 +463,9 @@ class MapRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.SettingScreen]
-class SettingsRoute extends _i16.PageRouteInfo<SettingsRouteArgs> {
-  SettingsRoute({_i19.Key? key})
+/// [_i15.SettingScreen]
+class SettingsRoute extends _i20.PageRouteInfo<SettingsRouteArgs> {
+  SettingsRoute({_i23.Key? key})
       : super(
           SettingsRoute.name,
           path: 'settings',
@@ -376,7 +478,7 @@ class SettingsRoute extends _i16.PageRouteInfo<SettingsRouteArgs> {
 class SettingsRouteArgs {
   const SettingsRouteArgs({this.key});
 
-  final _i19.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -385,8 +487,8 @@ class SettingsRouteArgs {
 }
 
 /// generated route for
-/// [_i12.SearchScreen]
-class SearchRoute extends _i16.PageRouteInfo<void> {
+/// [_i16.SearchScreen]
+class SearchRoute extends _i20.PageRouteInfo<void> {
   const SearchRoute()
       : super(
           SearchRoute.name,
@@ -397,8 +499,8 @@ class SearchRoute extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.AdminMainScreen]
-class Adminhome extends _i16.PageRouteInfo<void> {
+/// [_i17.AdminMainScreen]
+class Adminhome extends _i20.PageRouteInfo<void> {
   const Adminhome()
       : super(
           Adminhome.name,
@@ -409,8 +511,8 @@ class Adminhome extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.AdminSettingScreen]
-class Adminsetting extends _i16.PageRouteInfo<void> {
+/// [_i18.AdminSettingScreen]
+class Adminsetting extends _i20.PageRouteInfo<void> {
   const Adminsetting()
       : super(
           Adminsetting.name,
@@ -421,8 +523,8 @@ class Adminsetting extends _i16.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.ManagmentScreen]
-class Managment extends _i16.PageRouteInfo<void> {
+/// [_i19.ManagmentScreen]
+class Managment extends _i20.PageRouteInfo<void> {
   const Managment()
       : super(
           Managment.name,

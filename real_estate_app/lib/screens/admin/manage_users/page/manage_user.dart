@@ -44,12 +44,6 @@ class ManageUsersScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Implement floating action button function here
-        },
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

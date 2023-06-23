@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
   final _appRouter = AppRouter(
     userGuard: UserGuard(),
   );
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {

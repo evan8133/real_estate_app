@@ -103,9 +103,13 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
                   children: [
                     ElevatedButton(
                       onPressed: loginUser,
-                      child: const Text(
-                        "Login",
-                      ),
+                      child: isLoading
+                          ? const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            )
+                          : const Text(
+                              "Login",
+                            ),
                     ),
                     ElevatedButton(
                       onPressed: () {

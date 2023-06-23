@@ -14,7 +14,8 @@ class FirebsaeAuthMethods {
   FirebsaeAuthMethods(this._auth);
   User get user => _auth.currentUser!;
   Stream<User?> get authState => _auth.authStateChanges();
-  //signUp
+
+  // SIGN UP
   Future<void> signUpWithEmail({
     required Map<String, dynamic> user,
     required String password,
@@ -69,6 +70,8 @@ class FirebsaeAuthMethods {
             // This is an admin user.
             // Navigate to the admin page.
             context.router.replace(const AdminNavigation());
+          } else if(userData['role'] == 'agent') {
+            context.router.replace(const AgentNavRoute());
           } else {
             // This is a regular user.
             // Navigate to the regular user page.
@@ -109,7 +112,6 @@ class FirebsaeAuthMethods {
   }
 
   // DELETE ACCOUNT
-  // DELETE ACCOUNT
   Future<void> deleteAccount(BuildContext context) async {
     try {
       String uid = _auth.currentUser!.uid;
@@ -126,8 +128,3 @@ class FirebsaeAuthMethods {
     }
   }
 }
-  
-
-
-// await firebaseFirestore.collection ('users')
-// • doc (_userCredential.user! .uid) .set (user. toJson ( ) );

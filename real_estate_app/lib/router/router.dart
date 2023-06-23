@@ -8,10 +8,14 @@ import 'package:real_estate_app/screens/admin/manage_property/page/manage_proper
 import 'package:real_estate_app/screens/admin/manage_users/page/manage_user.dart';
 import 'package:real_estate_app/screens/admin/manager/page/managment_screen.dart';
 import 'package:real_estate_app/screens/admin/setting/admin_setting_screen.dart';
+import 'package:real_estate_app/screens/agent/home/agent_nav_home.dart';
 import 'package:real_estate_app/screens/login/page/login_screen.dart';
 import 'package:real_estate_app/screens/login/page/sign_up_screen.dart';
 import 'package:real_estate_app/screens/users/main/page/main_screen.dart';
 
+import '../screens/agent/agent_properties/agent_properties_screen.dart';
+import '../screens/agent/main/agent_home_screen.dart';
+import '../screens/agent/settings/agent_settings_screen.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/users/home/home_screen.dart';
 import '../screens/users/map/map_screen.dart';
@@ -25,6 +29,31 @@ import '../screens/users/setting/setting_screen.dart';
       initial: true,
       page: SplashScreen,
       path: '/',
+    ),
+    MaterialRoute(
+      page: AgentNavScreen,
+      path: '/agenthome',
+      guards: [UserGuard],
+      children: [
+        MaterialRoute(
+          path: 'agenthome',
+          name: 'agenthome',
+          page: AgentHomeScreen,
+          guards: [UserGuard],
+        ),
+        MaterialRoute(
+          path: 'agentsetting',
+          name: 'agentsetting',
+          page: AgentSettingScreen,
+          guards: [UserGuard],
+        ),
+        MaterialRoute(
+          page: AgentPropertiesScreen,
+          path: 'agentproperties',
+          name: 'agentproperties',
+          guards: [UserGuard],
+        ),
+      ]
     ),
     MaterialRoute(
       path: '/home',
