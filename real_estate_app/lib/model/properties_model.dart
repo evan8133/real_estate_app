@@ -14,11 +14,10 @@ class Property {
   final String? residentialProject;
   final List<String> includedAmenities;
   final bool forSale;
+  final String status;
   final bool forRent;
   final double price;
   final int bedroomCount;
-  final String virtualTourLink;
-  final List<String> images;
   final String agentId;
 
   Property({
@@ -34,12 +33,11 @@ class Property {
     this.apartmentName,
     this.residentialProject,
     required this.includedAmenities,
+    required this.status,
     required this.forSale,
     required this.forRent,
     required this.price,
     required this.bedroomCount,
-    required this.virtualTourLink,
-    required this.images,
     required this.agentId,
   });
 
@@ -109,6 +107,7 @@ class Property {
     size: json['size'].toDouble(),
     roomCount: int.parse(json['roomCount']),
     type: json['type'],
+    status: json['status'],
     floor: json['floor'] != null ? int.parse(json['floor']) : null,
     apartmentName: json['apartmentName'],
     residentialProject: json['residentialProject'],
@@ -117,8 +116,6 @@ class Property {
     forRent: json['forRent'],
     price: json['price'].toDouble(),
     bedroomCount: int.parse(json['bedroomCount']),
-    virtualTourLink: json['virtualTourLink'],
-    images: List<String>.from(json['images']),
     agentId: json['agentId'],
   );
 
@@ -137,10 +134,9 @@ class Property {
     'includedAmenities': includedAmenities,
     'forSale': forSale,
     'forRent': forRent,
+    'status': status,
     'price': price,
     'bedroomCount': bedroomCount,
-    'virtualTourLink': virtualTourLink,
-    'images': images,
     'agentId': agentId,
   };
 }

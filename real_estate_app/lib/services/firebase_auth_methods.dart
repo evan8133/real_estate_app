@@ -70,7 +70,7 @@ class FirebsaeAuthMethods {
             // This is an admin user.
             // Navigate to the admin page.
             context.router.replace(const AdminNavigation());
-          } else if(userData['role'] == 'agent') {
+          } else if (userData['role'] == 'agent') {
             context.router.replace(const AgentNavRoute());
           } else {
             // This is a regular user.
@@ -126,5 +126,21 @@ class FirebsaeAuthMethods {
     } catch (e) {
       showSnackBar(context, "Error: Could not delete user data");
     }
+  }
+
+  Future<List<DocumentSnapshot>> getUserProperties(String uid) async {
+    DocumentSnapshot userDoc =
+        await _firebaseFirestore.collection('users').doc(uid).get();
+    Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>? ??
+        {}; // cast to Map<String, dynamic>
+    List<String> propertyIds =
+        List<String>.from(userData['listedProperties'] ?? []);
+    List<DocumentSnapshot> propertyDocs = [];
+    for (String id in propertyIds) {
+      DocumentSnapshot propertyDoc =
+          await _firebaseFirestore.collection('properties').doc(id).get();
+      propertyDocs.add(propertyDoc);
+    }
+    return propertyDocs;
   }
 }

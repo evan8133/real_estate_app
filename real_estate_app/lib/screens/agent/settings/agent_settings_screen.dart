@@ -45,16 +45,16 @@ class _SettingScreenState extends State<AgentSettingScreen> {
             children: [
               // User card
               BigUserCard(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
                 settingColor: Theme.of(context).colorScheme.primaryContainer,
-                userName: _user['name'],
+                userName: '${_user['role']}\n${_user['name']}',
                 userProfilePic: const AssetImage("assets/user.png"),
                 cardActionWidget: SettingsItem(
                   icons: Icons.edit,
                   iconStyle: IconStyle(
                     withBackground: true,
                     borderRadius: 50,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).colorScheme.tertiary,
                   ),
                   title: "Modify",
                   subtitle: "Tap to change your data",

@@ -45,7 +45,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
               BigUserCard(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 settingColor: Theme.of(context).colorScheme.primaryContainer,
-                userName: _user['name'],
+                userName: '${_user['role']}\n${_user['name']}',
                 userProfilePic: const AssetImage("assets/user.png"),
                 cardActionWidget: SettingsItem(
                   icons: Icons.edit,

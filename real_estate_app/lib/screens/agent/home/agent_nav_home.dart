@@ -24,9 +24,9 @@ class _NavigationPagesState extends State<AgentNavScreen> {
         centerTitle: true,
         leading: const AutoLeadingButton(),
       ),
-      routes: const [
-        Agenthome(),
-        Agentproperties(),
+      routes:  [
+        const Agenthome(),
+        const Agentproperties(),
         Agentsetting(),
       ],
       bottomNavigationBuilder: (context, tabsRouter) {
