@@ -37,25 +37,32 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
   int bedroomCount = 0;
 
   Future<void> _selectLocation() async {
-  Navigator.push(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => PlacePicker(
           apiKey: 'AIzaSyAjaGWBMTQuFityWuHRB5lokimKetelTEE',
-          onPlacePicked: (result) { 
+          onPlacePicked: (result) {
             Navigator.of(context).pop();
           },
           initialPosition: const LatLng(37.42796133580664, -122.085749655962),
           useCurrentLocation: true,
-          resizeToAvoidBottomInset: false, // only works in page mode, less flickery, remove if wrong offsets
+          resizeToAvoidBottomInset:
+              false, // only works in page mode, less flickery, remove if wrong offsets
         ),
       ),
     );
-}
-
+  }
 
   Future<void> _selectImages() async {
-    List<Asset> resultList = await MultiImagePicker.pickImages();
+    List<Asset> resultList = await MultiImagePicker.pickImages(
+      cupertinoOptions: const CupertinoOptions(
+        settings: CupertinoSettings(
+          previewEnabled: true,
+        ),
+      ),
+      materialOptions: const MaterialOptions(),
+    );
 
     if (resultList != null) {
       setState(() {
@@ -140,7 +147,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                     value!.isEmpty ? 'Please enter a description' : null,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Property Type'),
                 onChanged: (value) => propertyType = value,
@@ -148,20 +154,17 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                     value!.isEmpty ? 'Please enter a property type' : null,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Apartment Name'),
                 onChanged: (value) => apartmentName = value,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration:
                     const InputDecoration(labelText: 'Residential Project'),
                 onChanged: (value) => residentialProject = value,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Floor'),
                 onChanged: (value) => floor = int.parse(value),
@@ -170,7 +173,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Size'),
                 onChanged: (value) => size = double.parse(value),
@@ -179,7 +181,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Room Count'),
                 onChanged: (value) => roomCount = int.parse(value),
@@ -188,7 +189,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Bedroom Count'),
                 onChanged: (value) => bedroomCount = int.parse(value),
@@ -197,21 +197,18 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-
               CheckboxListTile(
                 title: const Text('For Sale'),
                 value: forSale,
                 onChanged: (bool? value) => setState(() => forSale = value!),
               ),
               const SizedBox(height: 16),
-
               CheckboxListTile(
                 title: const Text('For Rent'),
                 value: forRent,
                 onChanged: (bool? value) => setState(() => forRent = value!),
               ),
               const SizedBox(height: 16),
-
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Price'),
                 onChanged: (value) => price = double.parse(value),
@@ -220,7 +217,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -229,7 +225,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -247,7 +242,6 @@ class _AgentAddPropertyScreenState extends State<AgentAddPropertyScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-
             ],
           ),
         ),
