@@ -128,6 +128,20 @@ class FirebsaeAuthMethods {
     }
   }
 
+  // RESET PASSWORD
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      // ignore: use_build_context_synchronously
+      showSnackBar(context, 'Password reset email sent!');
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!); // Displaying the error message
+    }
+  }
+
   Future<List<DocumentSnapshot>> getUserProperties(String uid) async {
     DocumentSnapshot userDoc =
         await _firebaseFirestore.collection('users').doc(uid).get();
@@ -142,5 +156,50 @@ class FirebsaeAuthMethods {
       propertyDocs.add(propertyDoc);
     }
     return propertyDocs;
+  }
+
+  //update name
+  Future<void> updateName(String name) async {
+    try {
+      await _auth.currentUser!.updateDisplayName(name).then((value) {
+        // update name in firestore in collection users
+        _firebaseFirestore
+            .collection('users')
+            .doc(_auth.currentUser!.uid)
+            .update({
+          'name': name,
+        });
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> updateAge(String age) async {
+    // update age in firestore in collection users
+    await _firebaseFirestore
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .update({
+      'age': age,
+    });
+  }
+
+  Future<void> updatePhone(String phone) async {
+    await _firebaseFirestore
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .update({
+      'phone': phone,
+    });
+  }
+
+  Future<void>  updateGender(String gender) async{
+    await _firebaseFirestore
+        .collection('users')
+        .doc(_auth.currentUser!.uid)
+        .update({
+      'gender': gender,
+    });
   }
 }

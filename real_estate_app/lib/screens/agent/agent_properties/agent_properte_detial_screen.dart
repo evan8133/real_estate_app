@@ -46,7 +46,7 @@ class _AgentPropertyDetailScreenState extends State<AgentProperteDetailScreen> {
         imageUrls = urls;
       });
     } catch (e) {
-      print('Failed to fetch property images: $e');
+      log('Failed to fetch property images: $e');
     }
   }
 

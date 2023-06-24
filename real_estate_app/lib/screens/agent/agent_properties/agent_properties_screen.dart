@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/router/router.gr.dart';
 import 'package:real_estate_app/services/firebase_auth_methods.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AgentPropertiesScreen extends StatefulWidget {
   const AgentPropertiesScreen({Key? key}) : super(key: key);
@@ -40,7 +43,36 @@ class _AgentPropertiesScreenState extends State<AgentPropertiesScreen> {
           builder: (BuildContext context,
               AsyncSnapshot<List<DocumentSnapshot>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return Shimmer(
+                loop: 3,
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                    Theme.of(context).colorScheme.surface,
+                    Theme.of(context).colorScheme.tertiary,
+                  ],
+                ),
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      child: ListTile(
+                        title: Container(
+                          height: 16.0,
+                        ),
+                        subtitle: Container(
+                          height: 12.0,
+                        ),
+                        trailing: const SizedBox(
+                          width: 80.0,
+                          height: 36.0,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else {

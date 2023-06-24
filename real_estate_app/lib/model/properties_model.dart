@@ -7,9 +7,9 @@ class Property {
   final GeoPoint location;
   final List<String> nearbyPlaces;
   final double size;
-  final int roomCount;
+  final String roomCount;
   final String type;
-  final int? floor;
+  final String? floor;
   final String? apartmentName;
   final String? residentialProject;
   final List<String> includedAmenities;
@@ -17,8 +17,9 @@ class Property {
   final String status;
   final bool forRent;
   final double price;
-  final int bedroomCount;
+  final String bedroomCount;
   final String agentId;
+  List<String> imageUrls = [];
 
   Property({
     required this.propertyId,
@@ -105,17 +106,17 @@ class Property {
     location: json['location'],
     nearbyPlaces: List<String>.from(json['nearbyPlaces']),
     size: json['size'].toDouble(),
-    roomCount: int.parse(json['roomCount']),
+    roomCount: json['roomCount'],
     type: json['type'],
     status: json['status'],
-    floor: json['floor'] != null ? int.parse(json['floor']) : null,
+    floor: json['floor'],
     apartmentName: json['apartmentName'],
     residentialProject: json['residentialProject'],
     includedAmenities: List<String>.from(json['includedAmenities']),
     forSale: json['forSale'],
     forRent: json['forRent'],
     price: json['price'].toDouble(),
-    bedroomCount: int.parse(json['bedroomCount']),
+    bedroomCount: json['bedroomCount'],
     agentId: json['agentId'],
   );
 

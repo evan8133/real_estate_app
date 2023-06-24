@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ import '../../../router/router.gr.dart';
 import '../../../services/firebase_auth_methods.dart';
 import '../../../services/firestore_user_methods.dart';
 import '../../../utils/theme_provider.dart';
+import '../../profile/profile_model.dart';
 
 class AdminSettingScreen extends StatefulWidget {
   const AdminSettingScreen({super.key});
@@ -36,7 +38,10 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
             child: Text('Error'),
           );
         }
-        final _user = snapshot.data!.data() as Map<String, dynamic>;
+        var user =
+            (snapshot.data as DocumentSnapshot).data() as Map<String, dynamic>;
+
+        Profile profile = Profile.fromJson(user);
         return Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -45,7 +50,7 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
               BigUserCard(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 settingColor: Theme.of(context).colorScheme.primaryContainer,
-                userName: '${_user['role']}\n${_user['name']}',
+                userName: '${profile.role}\n${profile.name}',
                 userProfilePic: const AssetImage("assets/user.png"),
                 cardActionWidget: SettingsItem(
                   icons: Icons.edit,
@@ -59,7 +64,11 @@ class _AdminSettingScreenState extends State<AdminSettingScreen> {
                   titleStyle: Theme.of(context).textTheme.headlineMedium,
                   subtitleStyle: Theme.of(context).textTheme.bodySmall,
                   onTap: () {
-                    print("OK");
+                    context.router.push(
+                      ProfileRoute(
+                        profile: profile,
+                      ),
+                    );
                   },
                 ),
               ),

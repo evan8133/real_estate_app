@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:babstrap_settings_screen/babstrap_settings_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,6 +11,7 @@ import 'package:real_estate_app/services/firebase_auth_methods.dart';
 
 import '../../../services/firestore_user_methods.dart';
 import '../../../utils/theme_provider.dart';
+import '../../profile/profile_model.dart';
 
 class SettingScreen extends StatefulWidget {
   SettingScreen({super.key});
@@ -38,7 +40,10 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Text('Error'),
           );
         }
-        final _user = snapshot.data!.data() as Map<String, dynamic>;
+        var user =
+            (snapshot.data as DocumentSnapshot).data() as Map<String, dynamic>;
+
+        Profile profile = Profile.fromJson(user);
         return Padding(
           padding: const EdgeInsets.all(10),
           child: ListView(
@@ -47,7 +52,7 @@ class _SettingScreenState extends State<SettingScreen> {
               BigUserCard(
                 backgroundColor: Theme.of(context).colorScheme.secondary,
                 settingColor: Theme.of(context).colorScheme.primaryContainer,
-                userName: '${_user['role']}\n${_user['name']}',
+                userName: '${profile.role}\n${profile.name}',
                 userProfilePic: const AssetImage("assets/user.png"),
                 cardActionWidget: SettingsItem(
                   icons: Icons.edit,
@@ -61,7 +66,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   titleStyle: Theme.of(context).textTheme.headlineMedium,
                   subtitleStyle: Theme.of(context).textTheme.bodySmall,
                   onTap: () {
-                    print("OK");
+                    context.router.push(
+                      ProfileRoute(
+                        profile: profile,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -119,9 +128,33 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                   SettingsItem(
                     onTap: () {
-                      context
-                          .read<FirebsaeAuthMethods>()
-                          .deleteAccount(context);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Confirmation"),
+                            content: Text(
+                                "Are you sure you want to delete your account? This action cannot be undone."),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text("Cancel"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text("Delete"),
+                                onPressed: () {
+                                  context
+                                      .read<FirebsaeAuthMethods>()
+                                      .deleteAccount(context);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     icons: CupertinoIcons.delete_solid,
                     title: "Delete account",
