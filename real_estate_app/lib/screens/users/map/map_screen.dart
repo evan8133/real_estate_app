@@ -1,9 +1,14 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/properties_model.dart';
 import '../../../../services/firestore_properties_methods.dart';
+import '../../../router/router.gr.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -11,6 +16,25 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  List<String> imageUrls = [];
+  FirebaseStorage storage = FirebaseStorage.instance;
+  Future<List<String>> fetchPropertyImages(String properteId) async {
+    try {
+      final ListResult result =
+          await storage.ref('house/$properteId/images').listAll();
+
+      final List<String> urls = [];
+      for (final ref in result.items) {
+        final imageUrl = await ref.getDownloadURL();
+        urls.add(imageUrl);
+      }
+      return urls;
+    } catch (e) {
+      log('Failed to fetch property images: $e');
+    }
+    return [];
+  }
+
   final Map<MarkerId, Marker> _markers = {};
 
   @override
@@ -38,7 +62,13 @@ class _MapScreenState extends State<MapScreen> {
             infoWindow: InfoWindow(
               title: property.title,
               snippet: 'Size: ${property.size}, Price: \$${property.price}',
-              onTap: () {},
+              onTap: () async {
+                await fetchPropertyImages(property.propertyId).then((value) {
+                  log('Image Urls: $value');
+                  property.imageUrls = value;
+                  context.router.push(PropertydetailsRoute(property: property));
+                });
+              },
             ),
           );
           _markers[markerId] = marker;

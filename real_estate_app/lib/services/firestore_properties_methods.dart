@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../model/properties_model.dart';
 
 class PropertyService {
+  final _firebaseStorage = FirebaseStorage.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   CollectionReference properties =
       FirebaseFirestore.instance.collection('properties');
@@ -58,6 +60,17 @@ class PropertyService {
     await _db.collection('users').doc(prop.agentId).update({
       'listedProperties': FieldValue.arrayRemove([prop.propertyId])
     });
+    //delete all fiels inside a folder in storage
+    try {
+      final ListResult result = await _firebaseStorage
+          .ref('house/${prop.propertyId}/images')
+          .listAll();
+      for (final ref in result.items) {
+        await ref.delete();
+      }
+    } catch (e) {
+      log('Failed to delete property images: $e');
+    }
   }
 
   Future<List<Property>> queryProperties({

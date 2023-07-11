@@ -103,13 +103,17 @@ class StatCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              stat["title"],
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: Colors
-                    .white, // Change the text color to white or a suitable color for visibility
+            Center(
+              child: FittedBox(
+                child: Text(
+                  stat["title"],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    color: Colors
+                        .white, // Change the text color to white or a suitable color for visibility
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 8.0),
