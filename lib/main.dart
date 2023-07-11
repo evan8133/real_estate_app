@@ -13,7 +13,7 @@ import 'package:real_estate_app/services/firebase_auth_methods.dart';
 import 'package:real_estate_app/services/firestore_properties_methods.dart';
 import 'package:real_estate_app/services/firestore_user_methods.dart';
 import 'package:real_estate_app/utils/theme_provider.dart';
-
+ 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

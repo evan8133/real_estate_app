@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,13 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:real_estate_app/model/properties_model.dart';
-
+import '../../../router/router.gr.dart';
 import '../../../services/firestore_properties_methods.dart';
 
 class AgentProperteDetailScreen extends StatefulWidget {
   final String properteId;
+  final bool isEditable;
 
-  const AgentProperteDetailScreen({Key? key, required this.properteId})
+  AgentProperteDetailScreen(
+      {Key? key, required this.properteId, this.isEditable = true})
       : super(key: key);
 
   @override
@@ -56,16 +59,28 @@ class _AgentPropertyDetailScreenState extends State<AgentProperteDetailScreen> {
       appBar: AppBar(
         title: const Text('Property Detail'),
         actions: [
-          IconButton(
-            onPressed: () {
-              // context.router.push(
-              //   EditPropertyRoute(
-              //     propertyId: widget.properteId,
-              //   ),
-              // );
-            },
-            icon: const Icon(Icons.edit),
-          ),
+          widget.isEditable
+              ? IconButton(
+                  onPressed: () {
+                    context.router.push(
+                      EditpropertyRoute(
+                        properteId: widget.properteId,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.edit),
+                )
+              : const SizedBox()
+
+,
+          widget.isEditable
+              ? IconButton(
+                  onPressed: () {
+                   //delete the proprety
+                  },
+                  icon: const Icon(Icons.delete),
+                )
+              : const SizedBox()
         ],
       ),
       body: Padding(
@@ -230,7 +245,7 @@ class _AgentPropertyDetailScreenState extends State<AgentProperteDetailScreen> {
                 Text(property.includedAmenities.toString()),
                 const SizedBox(height: 16),
                 const ElevatedButton(
-                  onPressed:null,
+                  onPressed: null,
                   child: Text(
                     'Virtual Tour',
                     style: TextStyle(

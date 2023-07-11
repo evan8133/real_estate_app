@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/properties_model.dart';
@@ -43,6 +45,16 @@ class PropertyService {
         .collection('properties')
         .doc(property.propertyId)
         .update(property.toJson());
+  }
+
+  // Update an existing property
+  Future<void> updateSingleProperty(Map<String, dynamic> property) async {
+    print(property);
+     log('haha $property' );
+    await _db
+        .collection('properties')
+        .doc(property['propertyId'])
+        .update(property);
   }
 
   // Delete a property

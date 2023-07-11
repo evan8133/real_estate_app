@@ -16,6 +16,7 @@ import 'package:real_estate_app/screens/users/main/page/property_detials_screen.
 import '../screens/agent/agent_properties/agent_add_properte.dart';
 import '../screens/agent/agent_properties/agent_properte_detial_screen.dart';
 import '../screens/agent/agent_properties/agent_properties_screen.dart';
+import '../screens/agent/agent_properties/edit_property.dart';
 import '../screens/agent/main/agent_home_screen.dart';
 import '../screens/agent/settings/agent_settings_screen.dart';
 import '../screens/profile/profile_screen.dart';
@@ -32,6 +33,12 @@ import '../screens/users/setting/setting_screen.dart';
       initial: true,
       page: SplashScreen,
       path: '/',
+    ),
+      MaterialRoute(
+      page: EditProperty,
+      path: '/edit_property',
+      name: 'EditpropertyRoute',
+      guards: [UserGuard],
     ),
     MaterialRoute(page: AgentNavScreen, path: '/agenthome', guards: [
       UserGuard
@@ -154,6 +161,7 @@ import '../screens/users/setting/setting_screen.dart';
       name: 'addpropertyRoute',
       guards: [UserGuard],
     ),
+   
     MaterialRoute(
       page: PropertyDetailsScreen,
       path: '/propertydetails:id',
