@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:real_estate_app/model/properties_model.dart';
+
+import '../../../services/firestore_properties_methods.dart';
 
 class AdminMainScreen extends StatefulWidget {
   @override
@@ -6,32 +10,75 @@ class AdminMainScreen extends StatefulWidget {
 }
 
 class _StatsScreenState extends State<AdminMainScreen> {
-  final List<Map<String, dynamic>> statsData = [
-    {"title": "Properties for Sale", "count": 250},
-    {"title": "Properties for Rent", "count": 150},
-    {"title": "Users", "count": 1200},
-    {"title": "Agents", "count": 50},
-    {"title": "Admins", "count": 5},
-    {"title": "Houses", "count": 300},
-    {"title": "Apartments", "count": 100},
-    {"title": "Villas", "count": 50},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            GridView.count(
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              children: List.generate(statsData.length,
-                  (index) => StatCard(stat: statsData[index])),
-            ),
-            const SizedBox(height: 20),
-          ],
+        child: FutureBuilder(
+          future: context.read<PropertyService>().getProperties(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong!'));
+            }
+            final properties = snapshot.data as List<Property>;
+            final findHouseCount = properties.where((e) => e.type == 'House');
+            final findApartmentCount =
+                properties.where((e) => e.type == 'Apartment');
+            final findVillaCount = properties.where((e) => e.type == 'Villa');
+            final findRentCount = properties.where((e) => e.forRent);
+            final findSaleCount = properties.where((e) => e.forSale);
+            return Column(
+              children: [
+                GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  children: [
+                    StatCard(
+                      stat: {
+                        'title': 'Total Properties',
+                        'count': properties.length,
+                      },
+                    ),
+                    StatCard(
+                      stat: {
+                        'title': 'Total Houses',
+                        'count': findHouseCount.length,
+                      },
+                    ),
+                    StatCard(
+                      stat: {
+                        'title': 'Total Apartments',
+                        'count': findApartmentCount.length,
+                      },
+                    ),
+                    StatCard(
+                      stat: {
+                        'title': 'Total Villas',
+                        'count': findVillaCount.length,
+                      },
+                    ),
+                    StatCard(
+                      stat: {
+                        'title': 'Total Rentals',
+                        'count': findRentCount.length,
+                      },
+                    ),
+                    StatCard(
+                      stat: {
+                        'title': 'Total Sales',
+                        'count': findSaleCount.length,
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+              ],
+            );
+          },
         ),
       ),
     );

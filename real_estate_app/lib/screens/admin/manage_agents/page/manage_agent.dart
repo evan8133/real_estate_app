@@ -11,16 +11,16 @@ class ManageAgentsScreen extends StatelessWidget {
         Provider.of<FirestoreMethodsUsers>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Manage Agents')),
+      appBar: AppBar(title: const Text('Manage Agents')),
       body: FutureBuilder(
         future: firestoreMethodsUsers.getUsersByRole('agent'),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Something went wrong'));
+            return const Center(child: Text('Something went wrong'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return ListView.builder(
@@ -35,7 +35,7 @@ class ManageAgentsScreen extends StatelessWidget {
                     onPressed: () {
                       // Navigate to view agent details
                     },
-                    child: Text('View'),
+                    child: const Text('View'),
                   ),
                 ),
               );
@@ -47,7 +47,7 @@ class ManageAgentsScreen extends StatelessWidget {
         onPressed: () {
           // Implement floating action button function here
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

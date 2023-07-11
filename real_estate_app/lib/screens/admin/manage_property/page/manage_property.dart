@@ -11,16 +11,16 @@ class ManagePropertiesScreen extends StatelessWidget {
         Provider.of<PropertyService>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Manage Properties')),
+      appBar: AppBar(title: const Text('Manage Properties')),
       body: FutureBuilder<List<Property>>(
         future: propertyService.getProperties(),
         builder: (BuildContext context, AsyncSnapshot<List<Property>> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Something went wrong'));
+            return const Center(child: Text('Something went wrong'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           return ListView.builder(
@@ -36,19 +36,13 @@ class ManagePropertiesScreen extends StatelessWidget {
                     onPressed: () {
                       // Navigate to view property details
                     },
-                    child: Text('View'),
+                    child: const Text('View'),
                   ),
                 ),
               );
             },
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Implement floating action button function here
-        },
-        child: Icon(Icons.add),
       ),
     );
   }

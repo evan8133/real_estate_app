@@ -40,11 +40,6 @@ class _ManagmentScreenState extends State<ManagmentScreen> {
             context.router.push(const ManagePropertiesRoute());
           },
         ),
-        _buildMenuItem(
-          "Manage Residential Projects",
-          Icons.apartment,
-          () {},
-        ),
       ],
     );
   }

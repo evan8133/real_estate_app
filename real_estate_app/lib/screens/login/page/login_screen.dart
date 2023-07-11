@@ -122,20 +122,6 @@ class _EmailPasswordLoginState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 20.h),
-                SignInButton(
-                  shape: ShapeBorder.lerp(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    1,
-                  ),
-                  Buttons.Google,
-                  onPressed: () {/* Google Sign-In action */},
-                ),
-                SizedBox(height: 20.h),
               ],
             ),
           ),
