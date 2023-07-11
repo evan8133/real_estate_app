@@ -60,8 +60,8 @@ class Property {
     await properties.doc(property.propertyId).update(property.toJson());
   }
 
-  Future<void> deleteProperty(String id) async {
-    await properties.doc(id).delete();
+  Future<void> deleteProperty(Property prop) async {
+    await properties.doc(prop.propertyId).delete();
   }
 
   Stream<QuerySnapshot> getPropertiesStream() {

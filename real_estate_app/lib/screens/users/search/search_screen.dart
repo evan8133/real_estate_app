@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:real_estate_app/services/firestore_properties_methods.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(15.r),
-      child: Column(
-        children: [
-          _buildSearchField(),
-          SizedBox(height: 20.h),
-          _buildFilterOptions(context),
-        ],
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(15.r),
+        child: Column(
+          children: [
+            _buildSearchField(),
+            SizedBox(height: 20.h),
+            _buildFilterOptions(context),
+          ],
+        ),
       ),
     );
   }
@@ -36,7 +40,9 @@ class SearchScreen extends StatelessWidget {
         Text(
           'Filters',
           style: GoogleFonts.notoSans(
-              fontSize: 20.sp, fontWeight: FontWeight.w600),
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 10.h),
         Wrap(
@@ -68,6 +74,30 @@ class SearchScreen extends StatelessWidget {
             ),
           ],
         ),
+        FutureBuilder(
+          future: context.read<PropertyService>().queryProperties(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return const Center(child: Text('Something went wrong!'));
+            }
+            if (snapshot.data == null) {
+              return const Center(child: Text('No properties found!'));
+            }
+            return Expanded(
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(snapshot.data![index].title),
+                  );
+                },
+              ),
+            );
+          },
+        )
       ],
     );
   }

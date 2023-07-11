@@ -1,11 +1,14 @@
 import 'dart:developer';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:real_estate_app/model/properties_model.dart';
+import 'package:real_estate_app/services/firestore_properties_methods.dart';
 
 class ViewPorpertyDetialScreen extends StatefulWidget {
   final Property property;
@@ -53,6 +56,41 @@ class _ViewPropertyDetailScreenState extends State<ViewPorpertyDetialScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Property Details'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext dialogContext) {
+                  return AlertDialog(
+                    title: const Text('Confirm Deletion'),
+                    content: const Text(
+                        'Are you sure you want to delete this property?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.of(dialogContext).pop(); // Close the dialog
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('Delete'),
+                        onPressed: () async {
+                          Navigator.of(dialogContext).pop(); // Close the dialog
+                          await context
+                              .read<PropertyService>()
+                              .deleteProperty(widget.property);
+                          context.router.popUntilRouteWithPath('/adminhome');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
