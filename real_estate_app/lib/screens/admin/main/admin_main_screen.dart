@@ -95,18 +95,35 @@ class StatCard extends StatelessWidget {
     return Card(
       elevation: 5.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            stat["title"],
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-          ),
-          Text(
-            stat["count"].toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0),
-          ),
-        ],
+      color: Theme.of(context)
+          .colorScheme
+          .secondary, // Change the color to match your admin theme
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              stat["title"],
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                color: Colors
+                    .white, // Change the text color to white or a suitable color for visibility
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              stat["count"].toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24.0,
+                color: Colors
+                    .white, // Change the text color to white or a suitable color for visibility
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

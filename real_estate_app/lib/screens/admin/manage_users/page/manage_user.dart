@@ -1,6 +1,10 @@
+import 'dart:developer';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:real_estate_app/router/router.gr.dart';
 import '../../../../services/firestore_user_methods.dart';
 
 class ManageUsersScreen extends StatelessWidget {
@@ -27,6 +31,7 @@ class ManageUsersScreen extends StatelessWidget {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context, int index) {
               var user = snapshot.data!.docs[index];
+              var data = user.data() as Map<String, dynamic>;
               return Card(
                 child: ListTile(
                   title: Text(user['name']),
@@ -34,7 +39,7 @@ class ManageUsersScreen extends StatelessWidget {
                       'Email: ${user['email']}\nAge: ${user['age']}\nGender: ${user['gender']}'),
                   trailing: ElevatedButton(
                     onPressed: () {
-                      // Navigate to view user details
+                      context.router.push(UserdetailsRoute(user: data));
                     },
                     child: const Text('View'),
                   ),

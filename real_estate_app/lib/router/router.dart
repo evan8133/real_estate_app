@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:real_estate_app/router/router_guards.dart';
 import 'package:real_estate_app/screens/admin/home/admin_nav_home.dart';
 import 'package:real_estate_app/screens/admin/main/admin_main_screen.dart';
@@ -13,6 +14,9 @@ import 'package:real_estate_app/screens/login/page/sign_up_screen.dart';
 import 'package:real_estate_app/screens/users/main/page/main_screen.dart';
 import 'package:real_estate_app/screens/users/main/page/property_detials_screen.dart';
 
+import '../screens/admin/manage_agents/page/agent_details.dart';
+import '../screens/admin/manage_users/page/user_details.dart';
+import '../screens/admin/view_prop_detial/view_prop.dart';
 import '../screens/agent/agent_properties/agent_add_properte.dart';
 import '../screens/agent/agent_properties/agent_properte_detial_screen.dart';
 import '../screens/agent/agent_properties/agent_properties_screen.dart';
@@ -165,7 +169,25 @@ import '../screens/users/setting/setting_screen.dart';
       path: '/profile:profile',
       name: 'profileRoute',
       guards: [UserGuard],
-    )
+    ),
+    MaterialRoute(
+      page: UserDetialsScreen,
+      path: '/userdetails:user',
+      name: 'userdetailsRoute',
+      guards: [UserGuard],
+    ),
+    MaterialRoute(
+      page: AgentDetailsScreen,
+      path: '/agentdetails:agent',
+      name: 'agentdetailsRoute',
+      guards: [UserGuard],
+    ),
+    MaterialRoute(
+      page: ViewPorpertyDetialScreen,
+      path: '/viewpropertydetails:property',
+      name: 'viewpropertydetailsRoute',
+      guards: [UserGuard],
+    ),
   ],
 )
 class $AppRouter {}
