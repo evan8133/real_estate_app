@@ -18,11 +18,26 @@ class AgentHomeScreen extends StatefulWidget {
 
 class _AgentHomeScreenState extends State<AgentHomeScreen> {
   late Future<List<Property>> _propertiesFuture;
+  late Future<List<Property>> _allPropertiesFuture;
+  late Future<List<DocumentSnapshot>> _userPropertiesFuture;
+  List<String> _userPropertyIds = []; // List to store user property IDs
 
   @override
   void initState() {
     super.initState();
     _propertiesFuture = context.read<PropertyService>().getProperties();
+    _allPropertiesFuture = context.read<PropertyService>().getProperties();
+    _userPropertiesFuture = context
+        .read<FirebsaeAuthMethods>()
+        .getUserProperties(context.read<FirebsaeAuthMethods>().user.uid)
+        .then((userProperties) {
+      setState(() {
+        // Extract the property IDs from the user properties
+        _userPropertyIds =
+            userProperties.map((property) => property.id).toList();
+      });
+      return userProperties;
+    });
   }
 
   @override
@@ -31,12 +46,24 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
       onRefresh: () async {
         setState(() {
           _propertiesFuture = context.read<PropertyService>().getProperties();
+          _allPropertiesFuture =
+              context.read<PropertyService>().getProperties();
+          _userPropertiesFuture = context
+              .read<FirebsaeAuthMethods>()
+              .getUserProperties(context.read<FirebsaeAuthMethods>().user.uid)
+              .then((userProperties) {
+            setState(() {
+              _userPropertyIds =
+                  userProperties.map((property) => property.id).toList();
+            });
+            return userProperties;
+          });
         });
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<Property>>(
-          future: _propertiesFuture,
+          future: _allPropertiesFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Shimmer(
@@ -78,12 +105,16 @@ class _AgentHomeScreenState extends State<AgentHomeScreen> {
                     child: ListView.builder(
                       itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
-                        Property data = Property.fromJson(snapshot.data![index].toJson());
+                        Property data =
+                            Property.fromJson(snapshot.data![index].toJson());
+                        bool isEditable = _userPropertyIds
+                            .contains(snapshot.data![index].propertyId);
                         return GestureDetector(
                           onTap: () {
                             context.router.push(
                               PropertydetailRoute(
-                                properteId: snapshot.data![index].propertyId,
+                                prop: data,
+                                isEditable: isEditable,
                               ),
                             );
                           },

@@ -99,4 +99,10 @@ class PropertyService {
         .map((doc) => Property.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
   }
+
+  Future<String> getVirtualTourUrl({required String propertyId}) {
+    return _firebaseStorage.ref('house/$propertyId/img.jpg').getDownloadURL();
+  }
+
+  updateSingleProperty(Map<String, dynamic> changedData) {}
 }

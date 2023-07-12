@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_estate_app/model/properties_model.dart';
 import 'package:real_estate_app/router/router.gr.dart';
 import 'package:real_estate_app/services/firebase_auth_methods.dart';
 import 'package:shimmer/shimmer.dart';
@@ -93,22 +94,22 @@ class _AgentPropertiesScreenState extends State<AgentPropertiesScreen> {
                     child: ListView.builder(
                       itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (BuildContext context, int index) {
-                        Map<String, dynamic> data = snapshot.data![index].data()
-                            as Map<String, dynamic>;
+                        Property prop = Property.fromJson(snapshot.data![index]
+                            .data() as Map<String, dynamic>);
                         return GestureDetector(
                           onTap: () {
                             context.router.push(
                               PropertydetailRoute(
-                                properteId: snapshot.data![index].id,
+                                prop: prop,
                               ),
                             );
                           },
                           child: Card(
                             child: ListTile(
-                              title: Text(data['title']),
-                              subtitle: Text('Price: ${data['price']}'),
+                              title: Text(prop.title),
+                              subtitle: Text('Price: ${prop.price}'),
                               trailing: Text(
-                                'Type: ${data['type'] ?? 'N/A'}\nStatus: ${data['status']}',
+                                'Type: ${prop.type}\nStatus: ${prop.status}',
                               ),
                             ),
                           ),
