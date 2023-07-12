@@ -6,8 +6,11 @@ class TextInput extends StatelessWidget {
   final TextInputType textInputType;
   final String hint;
   final bool hideInput;
-  
+  final String? label;
+
   final String? Function(String?)? validator;
+  final String? Function(String?)? onChnaged;
+
 
   const TextInput({
     Key? key,
@@ -16,16 +19,20 @@ class TextInput extends StatelessWidget {
     required this.hideInput,
     this.validator,
     required this.textInputType,
+    this.label,
+    this.onChnaged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChnaged,
       controller: textEditingController,
       obscureText: hideInput,
       validator: validator,
       keyboardType: textInputType,
       decoration: InputDecoration(
+        label: label != null ? Text(label!) : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
@@ -34,6 +41,7 @@ class TextInput extends StatelessWidget {
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
         filled: true,
+        
         hintText: hint,
         hintStyle: TextStyle(
           fontSize: 14.sp,

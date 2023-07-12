@@ -101,8 +101,17 @@ class PropertyService {
   }
 
   Future<String> getVirtualTourUrl({required String propertyId}) {
+    if (propertyId.isEmpty) {
+      throw Exception('Property ID is empty');
+    }
+
     return _firebaseStorage.ref('house/$propertyId/img.jpg').getDownloadURL();
   }
 
-  updateSingleProperty(Map<String, dynamic> changedData) {}
+  Future<void> updateSingleProperty(Map<String, dynamic> changedData) {
+    return _db.collection('properties').doc(changedData['propertyId']).set(
+          changedData,
+          SetOptions(merge: true),
+        );
+  }
 }

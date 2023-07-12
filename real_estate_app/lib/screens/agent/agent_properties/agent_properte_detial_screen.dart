@@ -266,14 +266,19 @@ class _AgentPropertyDetailScreenState extends State<AgentProperteDetailScreen> {
                   ),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
                 if (snapshot.hasError) {
                   return const Center(
-                      child: Text('Virtual Tour not available'));
+                    child: Text('Virtual Tour not available'),
+                  );
                 }
                 if (snapshot.data == null) {
-                  return const Center(child: Text('No data'));
+                  return const Center(
+                    child: Text('No data'),
+                  );
                 }
                 var url = snapshot.data as String;
                 return ElevatedButton(

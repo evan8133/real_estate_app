@@ -39,28 +39,31 @@ import '../screens/users/setting/setting_screen.dart';
       page: SplashScreen,
       path: '/',
     ),
-    MaterialRoute(page: AgentNavScreen, path: '/agenthome', guards: [
-      UserGuard
-    ], children: [
-      MaterialRoute(
-        path: 'agenthome',
-        name: 'agenthome',
-        page: AgentHomeScreen,
-        guards: [UserGuard],
-      ),
-      MaterialRoute(
-        path: 'agentsetting',
-        name: 'agentsetting',
-        page: AgentSettingScreen,
-        guards: [UserGuard],
-      ),
-      MaterialRoute(
-        page: AgentPropertiesScreen,
-        path: 'agentproperties',
-        name: 'agentproperties',
-        guards: [UserGuard],
-      ),
-    ]),
+    MaterialRoute(
+      page: AgentNavScreen,
+      path: '/agenthome',
+      guards: [UserGuard],
+      children: [
+        MaterialRoute(
+          path: 'agenthome',
+          name: 'agenthome',
+          page: AgentHomeScreen,
+          guards: [UserGuard],
+        ),
+        MaterialRoute(
+          path: 'agentsetting',
+          name: 'agentsetting',
+          page: AgentSettingScreen,
+          guards: [UserGuard],
+        ),
+        MaterialRoute(
+          page: AgentPropertiesScreen,
+          path: 'agentproperties',
+          name: 'agentproperties',
+          guards: [UserGuard],
+        ),
+      ],
+    ),
     MaterialRoute(
       path: '/home',
       name: 'userNavigation',
@@ -196,7 +199,7 @@ import '../screens/users/setting/setting_screen.dart';
       name: 'virtualviewRoute',
       guards: [UserGuard],
     ),
-     MaterialRoute(
+    MaterialRoute(
       page: EditProperty,
       path: '/edit_property',
       name: 'EditpropertyRoute',
