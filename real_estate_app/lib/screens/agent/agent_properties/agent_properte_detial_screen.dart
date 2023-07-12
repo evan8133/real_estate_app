@@ -95,12 +95,14 @@ class _AgentPropertyDetailScreenState extends State<AgentProperteDetailScreen> {
                         ElevatedButton(
                           child: const Text('Delete'),
                           onPressed: () {
-                            // Perform the deletion
-                            Navigator.of(dialogContext)
-                                .pop(); // Close the dialog
+                            // Close the dialog
                             context
                                 .read<PropertyService>()
-                                .deleteProperty(widget.prop);
+                                .deleteProperty(widget.prop)
+                                .then((value) {
+                              context.router
+                                  .popUntilRouteWithPath('/agenthome');
+                            });
                           },
                         ),
                       ],

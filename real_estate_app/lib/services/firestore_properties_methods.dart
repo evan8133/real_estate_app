@@ -111,7 +111,7 @@ class PropertyService {
   Future<void> updateSingleProperty(Map<String, dynamic> changedData) {
     return _db.collection('properties').doc(changedData['propertyId']).set(
           changedData,
-          SetOptions(merge: true),
+          SetOptions(merge: true,),
         );
   }
 }
